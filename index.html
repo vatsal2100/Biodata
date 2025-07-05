@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Biodata</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body { height: 100%; margin: 0; padding: 0; }
+body {
+    min-height: 100vh;
+    font-family: 'Georgia', serif;
+    background: #f2f2f2;
+}
+.biodata-border {
+    max-width: 940px;
+    background: #fff;
+    border-radius: 16px;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+    color: #333;
+    max-height: 96vh;
+    overflow-y: auto;
+    margin: 24px auto;
+    border: 3px solid #bfa15a;
+}
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: none;
+    padding: 38px 34px 30px 34px;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+}
+.header {
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
+}
+.header h1 {
+    font-size: 2.2rem;
+    margin: 0;
+    letter-spacing: 2px;
+    color: #b53471;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #e0c3fc33;
+}
+.actions {
+    text-align: center;
+    margin-bottom: 18px;
+    z-index: 2;
+    position: relative;
+}
+.actions select, .actions button {
+    margin: 0 6px 10px 6px;
+    padding: 9px 22px;
+    border-radius: 5px;
+    border: none;
+    background: #b53471;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    transition: background 0.2s;
+}
+.actions button:hover {
+    background: #3b3b98;
+}
+.section-title {
+    font-size: 1.13rem;
+    font-weight: bold;
+    margin: 22px 0 10px 0;
+    border-bottom: 2.5px solid;
+    display: inline-block;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg,#fffbe6 60%,#e0eafc 100%);
+    border-radius: 0 10px 0 0;
+    padding: 2px 22px 2px 8px;
+    z-index: 2;
+    position: relative;
+}
+.details-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+.details-table td { padding: 5px 8px; font-size: 1rem; }
+.details-table td.label { font-weight: bold; width: 155px; }
+.photo-col { width: 180px; vertical-align: top; text-align: right; }
+.photo-frame {
+    border-radius: 14px;
+    width: 160px; height: 200px; background: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px #bfa15a22;
+    border: 3px solid #bfa15a;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.photo-frame img {
+    width: 100%; height: 100%; object-fit: cover; border-radius: 12px;
+}
+.photo-upload { margin-top: 8px; }
+.remove-photo-btn {
+    display: block;
+    margin: 0 auto 0 auto;
+    background: #ff7675;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 12px;
+    font-size: 0.97rem;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background 0.2s;
+}
+.remove-photo-btn:hover { background: #d63031; }
+input[type="text"], input[type="email"], textarea {
+    width: 97%;
+    padding: 5px 6px;
+    border: 1.5px solid #d1b2fc;
+    border-radius: 3px;
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    color: #333;
+    background: #f8f4ee;
+}
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+    border-color: #bfa15a;
+    outline: none;
+}
+textarea { resize: vertical; min-height: 40px; }
+.print-value { display: none; }
+@media (max-width: 900px) {
+    .container { padding: 22px 2vw 18px 2vw; }
+    .details-table td.label { width: 100px !important; }
+}
+@media (max-width: 700px) {
+    .container { padding: 12px 2vw 10px 2vw; }
+    .details-table td.label { width: 80px !important; }
+    .header h1 { font-size: 1.4rem; }
+    .section-title { font-size: 1rem; }
+    .photo-frame { width: 100px !important; height: 120px !important; }
+}
+@media (max-width: 600px) {
+    .biodata-border { max-width: 99vw; }
+    .container { padding: 8px 1vw 6px 1vw; }
+    .details-table td, .details-table td.label { font-size: 0.98rem; }
+    .photo-frame { width: 90px !important; height: 110px !important; }
+    .photo-col { width: 100px !important; }
+}
+@media (max-width: 700px) {
+    /* Stack photo above details */
+    .details-table tr > td.photo-col {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+    .details-table tr > td:not(.photo-col) {
+        display: block;
+        width: 100%;
+    }
+}
+@media print {
+    .actions, .header, .photo-upload { display: none !important; }
+    body { background: #fff !important; }
+    .biodata-border { box-shadow: none !important; margin: 0 !important; }
+    .container { box-shadow: none !important; }
+    html, body { height: auto; }
+    .container {
+        margin: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        page-break-inside: avoid !important;
+        page-break-before: auto !important;
+        page-break-after: auto !important;
+    }
+    @page {
+        size: A4 portrait;
+        margin: 10mm 8mm 10mm 8mm;
+    }
+    .container, .template, .details-table, .photo-frame {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    body { zoom: 0.95; }
+    input, textarea, select { display: none !important; }
+    .print-value { display: inline !important; }
+}
+.template { display: none; position: relative; }
+.active-template { display: block; }
+.template1 { background: linear-gradient(135deg, #fbeee6 0%, #e0eafc 100%); }
+.template1 .section-title { color: #bfa15a; border-bottom-color: #bfa15a; }
+.template1 .details-table td.label { color: #b53471; }
+.template1 .photo-frame { border-color: #bfa15a; }
+.template2 { background: linear-gradient(120deg, #e0f7fa 0%, #eafaf1 100%); }
+.template2 .section-title { color: #00b894; border-bottom-color: #00b894; }
+.template2 .details-table td.label { color: #0097a7; }
+.template2 .photo-frame { border-color: #00b894; }
+</style>
+</head>
+<body>
+<div class="biodata-border">
+    <div class="frame">
+        <div class="container">
+            <div class="header">
+                <h1>Biodata</h1>
+            </div>
+            <div class="actions" id="actions">
+                <label for="templateSelect"><b>Choose Template:</b></label>
+                <select id="templateSelect" onchange="switchTemplate()">
+                    <option value="template1">Gold/Maroon</option>
+                    <option value="template2">Green/Blue</option>
+                </select>
+                <button onclick="printBiodata()">Print / Save as PDF</button>
+            </div>
+            <!-- TEMPLATE 1 -->
+            <div id="template1" class="template template1 active-template">
+                <table class="details-table">
+                    <tr>
+                        <td>
+                            <table class="details-table">
+                                <tr><td class="label">Name</td><td><input type="text" id="name" oninput="syncPrintValue('name')"><span class="print-value" id="name_print"></span></td></tr>
+                                <tr><td class="label">Gender</td><td><input type="text" id="gender" oninput="syncPrintValue('gender')"><span class="print-value" id="gender_print"></span></td></tr>
+                                <tr><td class="label">Date Of Birth</td><td><input type="text" id="dob" oninput="syncPrintValue('dob')"><span class="print-value" id="dob_print"></span></td></tr>
+                                <tr><td class="label">Place Of Birth</td><td><input type="text" id="pob" oninput="syncPrintValue('pob')"><span class="print-value" id="pob_print"></span></td></tr>                          
+                                <tr><td class="label">Rashi</td><td><input type="text" id="rashi" oninput="syncPrintValue('rashi')"><span class="print-value" id="rashi_print"></span></td></tr>
+                                <tr><td class="label">Height</td><td><input type="text" id="height" oninput="syncPrintValue('height')"><span class="print-value" id="height_print"></span></td></tr>
+                                <tr><td class="label">Complexion</td><td><input type="text" id="complexion" oninput="syncPrintValue('complexion')"><span class="print-value" id="complexion_print"></span></td></tr>
+                                <tr><td class="label">Caste</td><td><input type="text" id="caste" oninput="syncPrintValue('caste')"><span class="print-value" id="caste_print"></span></td></tr>
+                                <tr><td class="label">Subcaste</td><td><input type="text" id="subcaste" oninput="syncPrintValue('subcaste')"><span class="print-value" id="subcaste_print"></span></td></tr>
+                                <tr><td class="label">Job/Occupation</td><td><input type="text" id="occupation" oninput="syncPrintValue('occupation')"><span class="print-value" id="occupation_print"></span></td></tr>
+                                <tr><td class="label">Organization Name</td><td><input type="text" id="org" oninput="syncPrintValue('org')"><span class="print-value" id="org_print"></span></td></tr>
+                            </table>
+                        </td>
+                        <td class="photo-col" rowspan="13">
+                            <div class="photo-frame" id="photoFrame" style="display:none;">
+                                <img id="photoPreview" src="" alt="Photo" style="display:none;">
+                            </div>
+                            <div class="photo-upload">
+                                <input type="file" accept="image/*" id="photoInput" onchange="previewPhoto(event)">
+                                <button type="button" class="remove-photo-btn" id="removePhotoBtn" style="display:none;" onclick="removePhoto()">Remove Photo</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <span class="section-title">Family Details</span>
+                <table class="details-table">
+                    <tr><td class="label">Father's Name</td><td><input type="text" id="father" oninput="syncPrintValue('father')"><span class="print-value" id="father_print"></span></td></tr>
+                    <tr><td class="label">Father's Occupation</td><td><input type="text" id="fatherOcc" oninput="syncPrintValue('fatherOcc')"><span class="print-value" id="fatherOcc_print"></span></td></tr>
+                    <tr><td class="label">Mother's Name</td><td><input type="text" id="mother" oninput="syncPrintValue('mother')"><span class="print-value" id="mother_print"></span></td></tr>
+                    <tr><td class="label">Mother's Occupation</td><td><input type="text" id="motherOcc" oninput="syncPrintValue('motherOcc')"><span class="print-value" id="motherOcc_print"></span></td></tr>
+                    <tr><td class="label">Total Siblings</td><td><input type="text" id="siblings" oninput="syncPrintValue('siblings')"><span class="print-value" id="siblings_print"></span></td></tr>
+                </table>
+                <span class="section-title">Contact Details</span>
+                <table class="details-table">
+                    <tr><td class="label">Contact Number</td><td><input type="text" id="contact" oninput="syncPrintValue('contact')"><span class="print-value" id="contact_print"></span></td></tr>
+                    <tr><td class="label">Email ID</td><td><input type="email" id="email" oninput="syncPrintValue('email')"><span class="print-value" id="email_print"></span></td></tr>
+                    <tr><td class="label">Address</td><td><textarea id="address" oninput="syncPrintValue('address')"></textarea><span class="print-value" id="address_print"></span></td></tr>
+                </table>
+            </div>
+            <!-- TEMPLATE 2 -->
+            <div id="template2" class="template template2">
+                <table class="details-table">
+                    <tr>
+                        <td>
+                            <table class="details-table">
+                                <tr><td class="label">Name</td><td><input type="text" id="name2" oninput="syncPrintValue('name2')"><span class="print-value" id="name2_print"></span></td></tr>
+                                <tr><td class="label">Gender</td><td><input type="text" id="gender2" oninput="syncPrintValue('gender2')"><span class="print-value" id="gender2_print"></span></td></tr>
+                                <tr><td class="label">Date Of Birth</td><td><input type="text" id="dob2" oninput="syncPrintValue('dob2')"><span class="print-value" id="dob2_print"></span></td></tr>
+                                <tr><td class="label">Place Of Birth</td><td><input type="text" id="pob2" oninput="syncPrintValue('pob2')"><span class="print-value" id="pob2_print"></span></td></tr>
+                                <tr><td class="label">Time Of Birth</td><td><input type="text" id="tob2" oninput="syncPrintValue('tob2')"><span class="print-value" id="tob2_print"></span></td></tr>
+                                <tr><td class="label">Rashi</td><td><input type="text" id="rashi2" oninput="syncPrintValue('rashi2')"><span class="print-value" id="rashi2_print"></span></td></tr>
+                                <tr><td class="label">Height</td><td><input type="text" id="height2" oninput="syncPrintValue('height2')"><span class="print-value" id="height2_print"></span></td></tr>
+                                <tr><td class="label">Complexion</td><td><input type="text" id="complexion2" oninput="syncPrintValue('complexion2')"><span class="print-value" id="complexion2_print"></span></td></tr>
+                                <tr><td class="label">Caste</td><td><input type="text" id="caste2" oninput="syncPrintValue('caste2')"><span class="print-value" id="caste2_print"></span></td></tr>
+                                <tr><td class="label">Subcaste</td><td><input type="text" id="subcaste2" oninput="syncPrintValue('subcaste2')"><span class="print-value" id="subcaste2_print"></span></td></tr>
+                                <tr><td class="label">Job/Occupation</td><td><input type="text" id="occupation2" oninput="syncPrintValue('occupation2')"><span class="print-value" id="occupation2_print"></span></td></tr>
+                                <tr><td class="label">Organization Name</td><td><input type="text" id="org2" oninput="syncPrintValue('org2')"><span class="print-value" id="org2_print"></span></td></tr>
+                            </table>
+                        </td>
+                        <td class="photo-col" rowspan="13">
+                            <div class="photo-frame" id="photoFrame2" style="display:none;">
+                                <img id="photoPreview2" src="" alt="Photo" style="display:none;">
+                            </div>
+                            <div class="photo-upload">
+                                <input type="file" accept="image/*" id="photoInput2" onchange="previewPhoto2(event)">
+                                <button type="button" class="remove-photo-btn" id="removePhotoBtn2" style="display:none;" onclick="removePhoto2()">Remove Photo</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <span class="section-title">Family Details</span>
+                <table class="details-table">
+                    <tr><td class="label">Father's Name</td><td><input type="text" id="father2" oninput="syncPrintValue('father2')"><span class="print-value" id="father2_print"></span></td></tr>
+                    <tr><td class="label">Father's Occupation</td><td><input type="text" id="fatherOcc2" oninput="syncPrintValue('fatherOcc2')"><span class="print-value" id="fatherOcc2_print"></span></td></tr>
+                    <tr><td class="label">Mother's Name</td><td><input type="text" id="mother2" oninput="syncPrintValue('mother2')"><span class="print-value" id="mother2_print"></span></td></tr>
+                    <tr><td class="label">Mother's Occupation</td><td><input type="text" id="motherOcc2" oninput="syncPrintValue('motherOcc2')"><span class="print-value" id="motherOcc2_print"></span></td></tr>
+                    <tr><td class="label">Total Siblings</td><td><input type="text" id="siblings2" oninput="syncPrintValue('siblings2')"><span class="print-value" id="siblings2_print"></span></td></tr>
+                </table>
+                <span class="section-title">Contact Details</span>
+                <table class="details-table">
+                    <tr><td class="label">Contact Number</td><td><input type="text" id="contact2" oninput="syncPrintValue('contact2')"><span class="print-value" id="contact2_print"></span></td></tr>
+                    <tr><td class="label">Email ID</td><td><input type="email" id="email2" oninput="syncPrintValue('email2')"><span class="print-value" id="email2_print"></span></td></tr>
+                    <tr><td class="label">Address</td><td><textarea id="address2" oninput="syncPrintValue('address2')"></textarea><span class="print-value" id="address2_print"></span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function switchTemplate() {
+        for(let i=1;i<=2;i++) {
+            var t = document.getElementById('template'+i);
+            if(t) t.classList.remove('active-template');
+        }
+        var sel = document.getElementById('templateSelect').value;
+        var t = document.getElementById(sel);
+        if(t) t.classList.add('active-template');
+    }
+    function previewPhoto(event) { setPhoto(event, 1); }
+    function previewPhoto2(event) { setPhoto(event, 2); }
+    function setPhoto(event, which) {
+        const reader = new FileReader();
+        reader.onload = function(){
+            for(let i=1;i<=2;i++) {
+                var preview = document.getElementById('photoPreview'+(i===1?'':i));
+                var frame = document.getElementById('photoFrame'+(i===1?'':i));
+                var btn = document.getElementById('removePhotoBtn'+(i===1?'':i));
+                if(preview && frame && btn) {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                    frame.style.display = 'flex';
+                    btn.style.display = 'block';
+                }
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        for(let i=1;i<=2;i++) {
+            if(i!==which) {
+                var inp = document.getElementById('photoInput'+(i===1?'':i));
+                if(inp) inp.files = event.target.files;
+            }
+        }
+    }
+    function removePhoto() { clearPhoto(1); }
+    function removePhoto2() { clearPhoto(2); }
+    function clearPhoto(which) {
+        for(let i=1;i<=2;i++) {
+            var preview = document.getElementById('photoPreview'+(i===1?'':i));
+            var frame = document.getElementById('photoFrame'+(i===1?'':i));
+            var inp = document.getElementById('photoInput'+(i===1?'':i));
+            var btn = document.getElementById('removePhotoBtn'+(i===1?'':i));
+            if(preview && frame && inp && btn) {
+                preview.src = "";
+                preview.style.display = 'none';
+                frame.style.display = 'none';
+                inp.value = "";
+                btn.style.display = 'none';
+            }
+        }
+    }
+    function printBiodata() {
+        syncAllPrintValues();
+        document.getElementById('actions').style.display = 'none';
+        setTimeout(function(){
+            window.print();
+            setTimeout(function(){
+                document.getElementById('actions').style.display = '';
+            }, 500);
+        }, 100);
+    }
+    function syncPrintValue(id) {
+        var input = document.getElementById(id);
+        var span = document.getElementById(id+'_print');
+        if(span && input) span.textContent = input.value;
+    }
+    function syncAllPrintValues() {
+        var ids = [];
+        var fields = [
+            'name','gender','dob','pob','tob','rashi','height','complexion','caste','subcaste','occupation','org',
+            'father','fatherOcc','mother','motherOcc','siblings','contact','email','address'
+        ];
+        for(let i=1;i<=2;i++) {
+            for(let f=0;f<fields.length;f++) {
+                ids.push(fields[f]+(i===1?'':i));
+            }
+        }
+        ids.forEach(function(id){
+            syncPrintValue(id);
+        });
+    }
+    document.addEventListener('input', function(e) {
+        if(e.target.id) {
+            var span = document.getElementById(e.target.id+'_print');
+            if(span) span.textContent = e.target.value;
+        }
+    });
+    window.onbeforeprint = syncAllPrintValues;
+    window.addEventListener('DOMContentLoaded', function() {
+        clearPhoto(1);
+    });
+</script>
+</body>
+</html>
